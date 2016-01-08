@@ -21,7 +21,6 @@
       $ret = "$baud b/s";
     }
 
-
     return $ret;
   }
 ?>
@@ -36,7 +35,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Raspberry Pi - Board Details</title>
+    <title>Raspberry Pi 2 - Board Details</title>
 
     <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -49,7 +48,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 title_area">
-          <h2>Raspberry Pi</h2>
+          <h2>Raspberry Pi 2</h2>
           <h3 class="text-muted">Board Details</h3>
           <img src="img/Raspberry_Pi_Logo.svg" class="title_logo">
         </div>
@@ -120,8 +119,8 @@
             $output = shell_exec('cat /sys/class/thermal/thermal_zone0/temp');
             $temp = intval($output)/1000;
 
-            $output = shell_exec('echo "$(</proc/uptime awk \'{print $1}\')"');
-            $time_alive = seconds_to_time(intval($output));
+	    $output = shell_exec('uptime');
+	    $load = explode(': ', $output);
           ?>
 
           <table class="table table-striped table-hover">
@@ -159,6 +158,25 @@
             </tbody>
           </table>
         </div>
+      </div>
+
+      <div class="row">
+	<div class="col-lg-12">
+          <?php 
+            $output = shell_exec('echo "$(</proc/uptime awk \'{print $1}\')"');
+            $time_alive = seconds_to_time(intval($output));
+	  ?>
+
+	  <h4>System</h4>
+	  <table class="table table-striped table-hover">
+	    <tbody>
+	    <tr>
+	      <td><p>System Load (1m, 5m, 15m): </p></td>
+	      <td><p class="text-right"><?php echo "$load[1]";?></p></td>
+	    </tr>
+	    </tbody>
+	  </table>
+	</div>
       </div>
 
       <div class="row">
@@ -262,7 +280,7 @@
             echo $name[1];
           ?>
         </p>
-        <p><a href="https://github.com/ColinWaddell/RPi-Board-Info">Source</a></p>
+        <p><a href="https://github.com/steefmin/RPi-Board-Info">Source</a>: Based on the work of <a href="https://github.com/ColinWaddell/RPi-Board-Info">Colin Waddell</a></p>
       </footer>
 
     </div> <!-- /container -->
