@@ -203,18 +203,6 @@
             $time_alive = seconds_to_time(intval($output));
 	  ?>
 
-<!-- 	  <h4>System</h4>
-	  <table class="table table-striped table-hover">
-	    <tbody>
-	    <tr>
-	      <td><p>System Load (1m, 5m, 15m): </p></td>
-	      <td><p class="text-right"><?php echo "$load[1]";?></p></td>
-	    </tr>
-	    </tbody>
-	  </table>
-	</div>
-      </div> -->
-
       <div class="row">
         <div class="col-lg-12">
          <h4><i class="fa fa-database"></i> Storage</h4>
