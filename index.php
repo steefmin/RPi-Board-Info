@@ -155,8 +155,8 @@
             $output = shell_exec('cat /sys/class/thermal/thermal_zone0/temp');
             $temp = intval($output)/1000;
 
-	    $output = shell_exec('uptime');
-	    $load = explode(': ', $output);
+            $output = shell_exec('echo "$(</proc/uptime awk \'{print $1}\')"');
+            $time_alive = seconds_to_time(intval($output));
           ?>
 
           <table class="table table-striped table-hover">
@@ -195,13 +195,6 @@
           </table>
         </div>
       </div>
-
-      <div class="row">
-	<div class="col-lg-12">
-          <?php 
-            $output = shell_exec('echo "$(</proc/uptime awk \'{print $1}\')"');
-            $time_alive = seconds_to_time(intval($output));
-	  ?>
 
       <div class="row">
         <div class="col-lg-12">
