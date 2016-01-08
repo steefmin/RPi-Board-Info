@@ -37,8 +37,12 @@
 
     <title>Raspberry Pi 2 - Board Details</title>
 
+    <link href="favicon.ico" type="image/x-icon" rel="icon" />
+
     <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Font Awesome --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
   </head>
@@ -47,14 +51,46 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 title_area">
+        <div class="col-lg-12 title_area">
           <h2>Raspberry Pi 2</h2>
           <h3 class="text-muted">Board Details</h3>
           <img src="img/Raspberry_Pi_Logo.svg" class="title_logo">
         </div>
 
+      </div>
+
+      <hr />
+
+      <div class="row">
+
         <div class="col-lg-6">
-         <h4>Memory</h4>
+           <h4><i class="fa fa-area-chart"></i> Load average</h4>
+
+           <?php
+            $output = shell_exec('uptime');
+            $loadavg = explode(' ', substr($output, strpos($output,'load average:')+14));
+           ?>
+
+          <table class="table table-striped table-hover">
+            <tbody>
+            <tr>
+              <td><p>1 min:</p></td>
+              <td><p class="text-right"><?php echo substr($loadavg[0], 0, -1);?></p></td>
+            </tr>
+            <tr>
+              <td><p>5 min:</p></td>
+              <td><p class="text-right"><?php echo substr($loadavg[1], 0, -1);?></p></td>
+            </tr>
+            <tr>
+              <td><p>15 min:</p></td>
+              <td><p class="text-right"><?php echo $loadavg[2];?></p></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-lg-6">
+         <h4><i class="fa fa-bolt"></i> Memory</h4>
 
           <?php
             $output = shell_exec('cat /proc/meminfo');
@@ -113,7 +149,7 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <h4>Hardware</h4>
+          <h4><i class="fa fa-server"></i> Hardware</h4>
 
           <?php
             $output = shell_exec('cat /sys/class/thermal/thermal_zone0/temp');
@@ -138,7 +174,7 @@
         </div>
 
         <div class="col-lg-6">
-           <h4>Network</h4>
+           <h4><i class="fa fa-exchange"></i> Network</h4>
 
            <?php
             $output = shell_exec('sh ./transfer_rate.sh');
@@ -167,7 +203,7 @@
             $time_alive = seconds_to_time(intval($output));
 	  ?>
 
-	  <h4>System</h4>
+<!-- 	  <h4>System</h4>
 	  <table class="table table-striped table-hover">
 	    <tbody>
 	    <tr>
@@ -177,11 +213,11 @@
 	    </tbody>
 	  </table>
 	</div>
-      </div>
+      </div> -->
 
       <div class="row">
         <div class="col-lg-12">
-         <h4>Storage</h4>
+         <h4><i class="fa fa-database"></i> Storage</h4>
 
           <?php
             $output = shell_exec('df -H');
@@ -280,7 +316,9 @@
             echo $name[1];
           ?>
         </p>
+
         <p><a href="https://github.com/steefmin/RPi-Board-Info">Source</a>: Based on the work of <a href="https://github.com/ColinWaddell/RPi-Board-Info">Colin Waddell</a></p>
+
       </footer>
 
     </div> <!-- /container -->
